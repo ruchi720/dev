@@ -20,7 +20,7 @@ import pages.RegisterUser;
 
 public class E2ETestForPayment {
 
-	WebDriver driver;
+	public static WebDriver driver;
 	@Test
 	public void loginApp() {
 		RestAssured.baseURI = "https://randomuser.me/api/";
@@ -69,13 +69,14 @@ public class E2ETestForPayment {
 		RegisterUser userRegistration = PageFactory.initElements(driver, RegisterUser.class);
 		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
 		HomePage homepage = PageFactory.initElements(driver, HomePage.class);
-		userRegistration.userRegisterToApplication(recipient_fName, recipient_lName, recipient_address, recipient_city, recipient_state, recipient_zipcode, recipient_phoneNumber, recipient_ssn, recipient_username, recipient_password);		
+		userRegistration.userRegisterToApplication(driver, recipient_fName, recipient_lName, recipient_address, recipient_city, recipient_state, recipient_zipcode, recipient_phoneNumber, recipient_ssn, recipient_username, recipient_password);
+		System.out.println(driver.getTitle());
 		loginpage.logoutToApplication(); 
-		userRegistration.userRegisterToApplication(sender_fName, sender_lName, sender_address, sender_city, sender_state, sender_zipcode, sender_phoneNumber, sender_ssn, sender_username, sender_password);		
+		userRegistration.userRegisterToApplication(driver, sender_fName, sender_lName, sender_address, sender_city, sender_state, sender_zipcode, sender_phoneNumber, sender_ssn, sender_username, sender_password);		
 
-		homepage.customerBillPayment(name, recipient_address, recipient_city, recipient_state, recipient_zipcode, recipient_phoneNumber,accountNumber,"34567");
-		homepage.getScreenShot();
-		//Browser.quiteBrowser(driver);
+		homepage.customerBillPayment(driver, name, recipient_address, recipient_city, recipient_state, recipient_zipcode, recipient_phoneNumber,accountNumber,"34567");
+		homepage.getScreenShot(driver);
+		Browser.quiteBrowser(driver);
 	}
 	
 	

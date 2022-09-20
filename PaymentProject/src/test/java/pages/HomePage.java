@@ -25,7 +25,7 @@ public class HomePage {
 	@FindBy(name="verifyAccount") WebElement verifyAC;
 
 	@FindBy(name="amount") WebElement amount;
-	public void customerBillPayment(String name, String uAddress, String  uCity, String ustate, String  zipcode, String uphone, String  acountNumber, String amounttosend) {
+	public void customerBillPayment(WebDriver driver, String name, String uAddress, String  uCity, String ustate, String  zipcode, String uphone, String  acountNumber, String amounttosend) {
 		paybill.click();
 		payeename.sendKeys(name);
 		address.sendKeys(uAddress);
@@ -37,10 +37,12 @@ public class HomePage {
 		verifyAC.sendKeys(acountNumber);
 		amount.sendKeys(amounttosend);
 		makepayment.click();
+		System.out.println(driver.getTitle());
+		//String paymentComplete = driver.getTitle();
 
 	}
 	
-	public void getScreenShot() {
+	public void getScreenShot(WebDriver driver) {
 	      try {
 	            File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 
